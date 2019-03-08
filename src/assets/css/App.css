@@ -31,9 +31,13 @@
   
   .col-padding {
     padding: 2px;
+    height: "99.6431vh",;
+    bottom: 0px;
   }
   .row-margin {
     margin: -5px;
+    display: inline-flex;
+    width: 100%;
   }
   
   .game-name {
