@@ -1,6 +1,5 @@
 import React from "react";
 import autobind from "react-autobind";
-import { Row, Col } from "react-bootstrap";
 import GameName from "../../components/game_name";
 import _ from "lodash";
 import LiveMatchSummary from "../../components/live_match_summary";
