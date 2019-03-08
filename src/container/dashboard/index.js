@@ -63,14 +63,14 @@ class Dashboard extends React.Component {
     return (
       <div className="App">
         <div>
-          <Row className="row-margin">
-            <Col xs={2} className="col-padding border-white">
+          <div className="row-margin">
+            <div className="col-padding border-white" style={{ width: '20%'}}>
               <div className="side-header">get & bet</div>
               {this.getGames()}
-            </Col>
-            <Col xs={7} className="col-padding border-white">
+            </div>
+            <div className="col-padding border-white" style={{ width: '55%'}}>
               <div className="main-header">Match details</div>
-              <Row className="row-margin border-white">
+              <div className="row-margin border-white">
                 {this.getLiveMathces()}
                 <div
                   className="next-live-match"
@@ -78,15 +78,15 @@ class Dashboard extends React.Component {
                 >
                   >>
                 </div>
-              </Row>
-            </Col>
-            <Col xs={3} className="col-padding border-white">
+              </div>
+            </div>
+            <div className="col-padding border-white" style={{ width: '25%'}}>
               <div className="user-side-bar">
                 <span className="username">shantiswarup</span>
               </div>
               <div className="placed-bets">placed bets</div>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
       </div>
     );
