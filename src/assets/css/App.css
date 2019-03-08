@@ -1,3 +1,68 @@
-/* Main CSS file */
-
-@import '_example/_example.css';
+.App {
+    font-family: sans-serif;
+    text-align: center;
+    color: #ffffff;
+    min-height: 100%;
+    background-color: #1a34b2;
+  }
+  
+  .side-header {
+    min-height: 50px;
+    background-color: #1a34b2;
+    border-bottom: 1px solid whitesmoke;
+  }
+  
+  .main-header {
+    min-height: 100px;
+    background-color: #1a34b2;
+  }
+  
+  .user-side-bar {
+    background-color: #1a34b2;
+    height: 70%;
+    min-height: 300px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid whitesmoke;
+  }
+  
+  .username {
+    margin: 10px;
+  }
+  
+  .col-padding {
+    padding: 2px;
+  }
+  .row-margin {
+    margin: -5px;
+  }
+  
+  .game-name {
+    background-color: #1a34b2;
+    border-bottom: 1px solid whitesmoke;
+    margin: 2px 0px;
+  }
+  
+  .live-match-summary {
+    background-color: #1a34b2;
+    height: 100%;
+    border-left: 1px solid whitesmoke;
+  }
+  
+  .live-mathces {
+    width: 22%;
+  }
+  
+  .next-live-match {
+    width: 12%;
+    border-left: 1px solid whitesmoke;
+  }
+  
+  .placed-bets {
+    height: 30% !important;
+    min-height: 200px;
+  }
+  
+  .border-white {
+    border: 2px solid whitesmoke;
+  }
+  
