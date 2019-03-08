@@ -4,85 +4,107 @@ import GameName from "../../components/game_name";
 import UserProfile from "../../components/user_profile";
 import _ from "lodash";
 import LiveMatchSummary from "../../components/live_match_summary";
+<<<<<<< HEAD
 import MatchItemTile from "../../components/match_item_tile";
+=======
+import MatchInfo from '../../components/match_info';
+import SideHeader from '../../components/side_header';
+import Banner from '../../components/banner';
+import { GAMES } from '../../assets/dummy_data/games';
+import { MATCHES } from '../../assets/dummy_data/matches';
+>>>>>>> 6156e11309bfa045d1d66b5a3541cfbedf0dc3a9
 
 class Dashboard extends React.Component {
   constructor() {
     super();
     this.state = {
-      games: ["Cricket", "Horse Racing", "FootBall", "Volley Ball"],
-      matches: [
-        {
-          team1: "Team A",
-          team2: "Team B"
-        },
-        {
-          team1: "Team A",
-          team2: "Team C"
-        },
-        {
-          team1: "Team C",
-          team2: "Team B"
-        },
-        {
-          team1: "Team A",
-          team2: "Team D"
-        },
-        {
-          team1: "Team D",
-          team2: "Team B"
-        }
-      ],
-      currentMatchIndex: 0
+      currentMatchIndex: 0,
+      currentGameIndex: 0,
+      matchInfo: [],
     };
     autobind(this);
   }
 
   getGames() {
-    return this.state.games.map(game => <GameName name={game} />);
+    return GAMES.map((game, index) => 
+    <GameName
+      id={index}
+      name={game.sports_name}
+      onClick={() => this.setState({
+        currentGameIndex: index,
+      })}
+    />);
+  }
+
+  getMatchInfo(matchId) {
+    this.setState({
+      matchInfo: MATCHES,
+    })
   }
 
   getLiveMathces() {
-    const matchClones = _.clone(this.state.matches);
+    console.log(this.state.currentGameIndex)
+    const matchClones = _.clone(GAMES[this.state.currentGameIndex].matches);
     const matches = matchClones.splice(this.state.currentMatchIndex, 4);
     console.log(this.state.currentMatchIndex, matches);
-    return matches.map(match => (
-      <div className="live-mathces">
-        <LiveMatchSummary team1={match.team1} team2={match.team2} />
+    return matches.map((match, index) => (
+      <div className="live-mathces" id={index}>
+        <LiveMatchSummary name={match.match_name} onClick={() => this.getMatchInfo(match.match_id)}/>
       </div>
     ));
   }
 
   getNextLiveMatch() {
-    if (this.state.currentMatchIndex < this.state.matches.length - 4) {
+    const matches = GAMES[this.state.currentGameIndex].matches;
+    if (this.state.currentMatchIndex < matches.length - 4) {
       this.setState({
         currentMatchIndex: this.state.currentMatchIndex + 1
       });
     }
   }
+
+  getPrevLiveMatch() {
+    const matches = GAMES[this.state.currentGameIndex].matches;
+    if (this.state.currentMatchIndex > 0) {
+      this.setState({
+        currentMatchIndex: this.state.currentMatchIndex -1
+      });
+    }
+  }
+
   render() {
+    const matches = GAMES[this.state.currentGameIndex].matches;
     return (
       <div className="App">
         <div>
           <div className="row-margin" style={{ height: "99.3vh" }}>
             <div className="col-padding border-white" style={{ width: "20%" }}>
-              <div className="side-header">get & bet</div>
+              <SideHeader />
               {this.getGames()}
             </div>
             <div className="col-padding border-white" style={{ width: "55%" }}>
-              <div className="main-header">Match details</div>
+              <Banner />
               <div className="row-margin border-white">
+                <div
+                    className="next-live-match"
+                    onClick={this.getPrevLiveMatch}
+                    style={matches.length < 4 || this.state.currentMatchIndex === 0 ? {color: 'grey'} : null}
+                  >
+                    <div style={{padding: '15px'}}>{'<<'}</div>
+                  </div>
                 {this.getLiveMathces()}
                 <div
                   className="next-live-match"
+                  style={matches.length < 4 || this.state.currentMatchIndex === matches.length - 4 ? {color: 'grey'} : null}
                   onClick={this.getNextLiveMatch}
                 >
-                  >>
+                  <div style={{padding: '15px'}}>{'>>'}</div>
                 </div>
               </div>
               <div>
                 {/* <MatchItemTile id={1} header={'Betting Match 1'} team1Score={1.1} team2Score={0.9} /> */}
               </div>
+              <MatchInfo matches={this.state.matchInfo} />
             </div>
             <div className="c1ol-padding border-white" style={{ width: "25%" }}>
               <div className="user-side-bar">

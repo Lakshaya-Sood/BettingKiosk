@@ -4,12 +4,8 @@ import "./user_profile.scss";
 var user = {
   basicInfo: {
     name: "Jane Doe",
-    gender: "Female",
-    birthday: "April 3, 1990",
-    location: "Los Angeles, CA",
     photo: "http://lorempixel.com/500/500/people",
-    bio:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat fugit quia pariatur est saepe necessitatibus, quibusdam reiciendis ratione voluptate atque in qui provident rem repellat soluta. Blanditiis repellat velit eligendi."
+    balance : 500
   }
 };
 
@@ -41,17 +37,12 @@ class MainPanel extends React.Component {
         <div className="top">
           <Avatar image={info.photo} width={100} height={100} />
           <h2>{info.name}</h2>
-          <h3>{info.location}</h3>
-
           <hr />
-          <p>
-            {info.gender} | {info.birthday}
-          </p>
         </div>
 
         <div className="bottom">
-          <h4>Biography</h4>
-          <p>{info.bio}</p>
+          <h4>BALANCE</h4>
+          <p>{info.balance}</p>
         </div>
       </div>
     );
