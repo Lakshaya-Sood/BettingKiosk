@@ -62,7 +62,7 @@ class Dashboard extends React.Component {
     return (
       <div className="App">
         <div>
-          <div className="row-margin" style={{height: "99.6431vh"}}>
+          <div className="row-margin" style={{height: "99.3vh"}}>
             <div className="col-padding border-white" style={{ width: '20%'}}>
               <div className="side-header">get & bet</div>
               {this.getGames()}
