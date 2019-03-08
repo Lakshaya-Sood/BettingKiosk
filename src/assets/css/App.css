@@ -8,18 +8,20 @@
   
   .side-header {
     min-height: 50px;
+    padding: 20px;
     background-color: #1a34b2;
     border-bottom: 1px solid whitesmoke;
   }
   
   .main-header {
     min-height: 100px;
+    padding: 20px;
     background-color: #1a34b2;
   }
   
   .user-side-bar {
     background-color: #1a34b2;
-    height: 70%;
+    height: 45%;
     min-height: 300px;
     margin-bottom: 2px;
     border-bottom: 1px solid whitesmoke;
@@ -30,12 +32,10 @@
   }
   
   .col-padding {
-    padding: 2px;
     height: "99.6431vh",;
     bottom: 0px;
   }
   .row-margin {
-    margin: -5px;
     display: inline-flex;
     width: 100%;
   }
@@ -43,7 +43,7 @@
   .game-name {
     background-color: #1a34b2;
     border-bottom: 1px solid whitesmoke;
-    margin: 2px 0px;
+    padding: 20px;
   }
   
   .live-match-summary {
