@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Switch,
   Redirect
@@ -16,10 +16,10 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path="/validatesession" component={SessionPage} />
+          {/* <Route path="/validatesession" component={SessionPage} /> */}
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/" component={Home} />
-          <Redirect to="/home" />
+          {/* <Route path="/home" component={Home} /> */}
+          <Redirect to="/dashboard" />
         </Switch>
       </Router>
     );

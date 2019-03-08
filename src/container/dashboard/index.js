@@ -4,6 +4,7 @@ import GameName from "../../components/game_name";
 import UserProfile from "../../components/user_profile";
 import _ from "lodash";
 import LiveMatchSummary from "../../components/live_match_summary";
+import MatchItemTile from "../../components/match_item_tile";
 
 class Dashboard extends React.Component {
   constructor() {
@@ -78,6 +79,9 @@ class Dashboard extends React.Component {
                 >
                   >>
                 </div>
+              </div>
+              <div>
+                {/* <MatchItemTile id={1} header={'Betting Match 1'} team1Score={1.1} team2Score={0.9} /> */}
               </div>
             </div>
             <div className="c1ol-padding border-white" style={{ width: "25%" }}>
