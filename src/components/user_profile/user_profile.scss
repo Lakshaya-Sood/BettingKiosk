@@ -10,7 +10,7 @@ $greenLight: lighten($blue, 10%);
 
 body {
   color: black;
-  background-color: $magenta;
+  // background-color: $magenta;
   font-family: sans-serif;
 }
 
@@ -21,8 +21,6 @@ body {
   border-radius: 5px;
   text-align: center;
   overflow: hidden;
-  box-shadow: 2px 2px 5px #000;
-  border: 1px solid #000;
   @include dotBg($blue, 30px);
 
   hr {
@@ -60,12 +58,11 @@ body {
 
   .top,
   .bottom {
-    padding: 30px;
+    padding: 19px;
   }
 
   .bottom {
     background-color: rgba(white, 0.3);
-    text-align: left;
   }
 
   .avatar {
