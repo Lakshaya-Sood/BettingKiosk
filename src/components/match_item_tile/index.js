@@ -19,5 +19,5 @@ class MatchItemTile extends React.Component {
     );
   }
 }
-
+/* <MatchItemTile id={1} header={'Betting Match 1'} team1Score={1.1} team2Score={0.9} /> */
 export default MatchItemTile;
