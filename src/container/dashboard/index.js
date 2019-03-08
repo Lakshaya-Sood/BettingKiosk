@@ -4,15 +4,12 @@ import GameName from "../../components/game_name";
 import UserProfile from "../../components/user_profile";
 import _ from "lodash";
 import LiveMatchSummary from "../../components/live_match_summary";
-<<<<<<< HEAD
 import MatchItemTile from "../../components/match_item_tile";
-=======
 import MatchInfo from '../../components/match_info';
 import SideHeader from '../../components/side_header';
 import Banner from '../../components/banner';
 import { GAMES } from '../../assets/dummy_data/games';
 import { MATCHES } from '../../assets/dummy_data/matches';
->>>>>>> 6156e11309bfa045d1d66b5a3541cfbedf0dc3a9
 
 class Dashboard extends React.Component {
   constructor() {
