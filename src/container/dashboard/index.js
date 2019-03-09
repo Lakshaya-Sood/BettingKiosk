@@ -35,8 +35,10 @@ class Dashboard extends React.Component {
       const evtSource = new EventSource(url);
       evtSource.onmessage = (e) => {
         console.log('DATA', e.data);
+        const data = JSON.parse(e.data);
+        const sortedData = data.sort((a,b)=> b.rate - a.rate );
         self.setState({
-          [matchId]: JSON.parse(e.data),
+          [matchId]: sortedData,
         })
 
       }
