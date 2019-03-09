@@ -6,7 +6,7 @@ class SideHeader extends React.Component {
     return (
         <div className="side-header">
             <div>
-                <img style={{ height: 100, width: 100 }} src={require('../assets/images/icon3.png')} />
+                <img style={{ height: 100, width: 100 }} src={require('../assets/images/image4.png')} />
             </div>
             get & bet
         </div>

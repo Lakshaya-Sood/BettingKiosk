@@ -105,7 +105,9 @@ class Dashboard extends React.Component {
                   currentGameIndex={currentGameIndex}
                 />
               </div>
-              <MatchInfo matches={this.state[this.state.selectedMatchId] ? this.state[this.state.selectedMatchId] : this.state.matchInfo} {...this.props}/>
+              <MatchInfo matches={this.state[this.state.selectedMatchId] ? this.state[this.state.selectedMatchId] : this.state.matchInfo}
+                matchId={this.state.selectedMatchId}
+              {...this.props}/>
             </div>
             <div className="c1ol-padding border-white" style={{ width: "25%" }}>
               <div className="user-side-bar">

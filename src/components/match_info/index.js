@@ -22,9 +22,50 @@ class MatchInfo extends React.Component {
     }
   }
   placeBet() {
-    const { history } = this.props;
-    history.push('/print');
-    console.log("user placed bet on: ", this.state.selectedIndex);
+    const { history, matchId } = this.props;
+    const item = this.props.matches[this.state.selectedIndex];
+    // history.push('/print');
+    const paylaod = {
+      email:'abc.def@gmail.com',
+      sessionId: 'session1',
+      kioskId: 'kiosk1',
+      matchId,
+      bet: {
+        teamId: item.name,
+        "amount_placed": 3,
+        "betType":"win",
+        "amount_due": 300
+      }
+    }
+    fetch('http://192.168.43.100:8080/placeBet', {
+      method: 'POST',
+      body: JSON.stringify(paylaod),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.text())
+    .then(res => {console.log(res);
+      fetch('http://192.168.43.61:8000/generateBetQR', {
+        method: 'POST',
+        body: JSON.stringify({email: 'abc.def@gmail.com',
+                betId: 'safkjaf',
+                kioskId: 'kiosk1',
+                matchId,
+                amountDue: '100',
+                }),
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.text())
+      .then(res=> history.push({
+        pathname: '/print',
+        state: {qrDate:res}
+      }))
+      .catch(err=>console.log(err))
+    })
+    .catch(err => console.log(err))
+    console.log("user placed bet on: ", this.props.matches[this.state.selectedIndex]);
+
   }
   getMatchInfo() {
     const { matches } = this.props;
@@ -66,7 +107,7 @@ class MatchInfo extends React.Component {
     return (
       <div>
         {this.getMatchInfo()}
-        {selectedIndex !== null ? <Button className={'place-bet'} content="Place Bet!" /> : <></>}
+        {selectedIndex !== null ? <Button className={'place-bet'} content="Place Bet!" onClick={this.placeBet} /> : <></>}
       </div>
     );
   }

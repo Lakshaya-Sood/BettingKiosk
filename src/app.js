@@ -24,7 +24,7 @@ class App extends React.Component {
             <Route path="/home" component={Home} />
             <Route path="/session" component={SessionPage} />
             <Route path="/print" component={PrintBet}/>
-            <Redirect to="/dashboard" />
+            <Redirect to="/home" />
           </Switch>
         </Router>
       </div>
