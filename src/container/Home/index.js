@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import QrCode from '../../components/QrCode';
 import autobind from 'react-autobind';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor(props) {
@@ -11,17 +12,25 @@ class Home extends Component {
     autobind(this);
   }
 
+  componentDidMount() {
+    fetch('http://192.168.43.61:8000/getKioskQR?kioskId=kiosk1')
+    .then(response=>response.text())
+    .then(res=>this.setState({qrData:res}))
+  }
+
   moveToNextScreen() {
     const { history } = this.props;
     history.push('/session');
   }
 
   render(){
-    setTimeout(this.moveToNextScreen, 10000);
+    // setTimeout(this.moveToNextScreen, 10000);
+    console.log(this.state.qrData)
     return(
       <div>
         <h3>Get & Bet</h3>
         <QrCode base64Str={this.state.qrData} />
+        <Link to="/session" > Start </Link>
       </div>
     )
   }

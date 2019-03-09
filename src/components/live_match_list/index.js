@@ -17,16 +17,18 @@ class LiveMatchList extends React.Component {
     const matchClones = cloneDeep(
       this.props.games[this.props.currentGameIndex].matches
     );
-    const matches = matchClones.splice(this.state.currentMatchIndex, 4);
+    const matches = matchClones.splice(this.props.currentMatchIndex, 4);
     console.log(this.state.currentMatchIndex, matches);
-    return matches.map((match, index) => (
+    return matches.map((match, index) => {
+      console.log('matchId', match.matchId);
+      return (
       <div className="live-mathces" id={index} key={index + "_games"}>
         <LiveMatchSummary
-          name={match.match_name}
-          onClick={() => this.props.getMatchInfo(match.match_id)}
+          name={match.matchName}
+          onClick={() => this.props.getMatchInfo(match.matchId)}
         />
       </div>
-    ));
+    )});
   }
 
   getNextLiveMatch() {

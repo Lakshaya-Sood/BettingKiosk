@@ -21,15 +21,18 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-
+    fetch('http://192.168.43.100:8080/getMatches')
+    .then(response => response.json())
+    .then(json=>this.setState({games:json}))
   }
 
   getGames() {
-    return GAMES.map((game, index) => (
+    return this.state.games.map((game, index) => (
       <GameName
         id={index}
         key={index + "_games"}
-        name={game.sports_name}
+        name={game.sportName}
+        imageSrc={game.icon}
         onClick={() =>
           this.setState({
             currentGameIndex: index,
@@ -39,13 +42,28 @@ class Dashboard extends React.Component {
       />
     ));
   }
+
   getMatchInfo(matchId) {
-    this.setState({
-      matchInfo: MATCHES
-    });
+    const url = `http://192.168.43.100:8080/getTeams?matchId=${matchId}`;
+    fetch(url)
+    .then(response => response.json())
+    .then(json=>{
+      const matchInfo = json.details.map(match => ({
+        name: match,
+        rate: 5,
+        bet_name: 'win',
+      }));
+      this.setState({
+        matchInfo,
+      })
+    })
+    // this.setState({
+    //   matchInfo: MATCHES
+    // });
   }
 
   render() {
+    console.log(this.state.games);
     let { currentGameIndex } = this.state;
     return (
       <div className="App">
@@ -60,7 +78,8 @@ class Dashboard extends React.Component {
               <div className="row-margin border-white">
                 <LiveMatchList
                   getMatchInfo={this.getMatchInfo}
-                  games={GAMES}
+                  // games={this.state.games}
+                  games={(this.state.games.length > 0 && this.state.games) || GAMES}
                   currentGameIndex={currentGameIndex}
                 />
               </div>
