@@ -17,6 +17,7 @@ class Dashboard extends React.Component {
       matchInfo: [],
       games: [],
       banner: null,
+      selectedMatchId: null,
     };
     autobind(this);
   }
@@ -27,11 +28,17 @@ class Dashboard extends React.Component {
     .then(json=>this.setState({games:json}))
   }
 
-  getLiveBets(retryCount) {
+  getLiveBets(retryCount, matchId) {
     if(retryCount < 5 ) {
-      const evtSource = new EventSource('sse.php');
-      evtSource.onmessage = (data) => {
-        console.log(e.data);
+      const self = this;
+      const url = `http://192.168.43.100:8090/match/${matchId}`;
+      const evtSource = new EventSource(url);
+      evtSource.onmessage = (e) => {
+        console.log('DATA', e.data);
+        self.setState({
+          [matchId]: JSON.parse(e.data),
+        })
+
       }
       evtSource.onerror = (err) => {
         console.log(error);
@@ -65,21 +72,18 @@ class Dashboard extends React.Component {
     .then(json=>{
       const matchInfo = json.details.map(match => ({
         name: match,
-        rate: 5,
-        bet_name: 'win',
       }));
       this.setState({
         matchInfo,
         banner,
+        selectedMatchId: matchId,
       })
     })
-    // this.setState({
-    //   matchInfo: MATCHES
-    // });
+    this.getLiveBets(0, matchId);
   }
 
   render() {
-    console.log(this.state.matchInfo);
+    console.log(this.state);
     let { currentGameIndex } = this.state;
     return (
       <div className="App">
@@ -99,7 +103,7 @@ class Dashboard extends React.Component {
                   currentGameIndex={currentGameIndex}
                 />
               </div>
-              <MatchInfo matches={this.state.matchInfo} {...this.props}/>
+              <MatchInfo matches={this.state[this.state.selectedMatchId] ? this.state[this.state.selectedMatchId] : this.state.matchInfo} {...this.props}/>
             </div>
             <div className="c1ol-padding border-white" style={{ width: "25%" }}>
               <div className="user-side-bar">

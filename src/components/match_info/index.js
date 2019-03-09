@@ -53,9 +53,9 @@ class MatchInfo extends React.Component {
             {match.name}
           </div>
           <div style={{ ...style, borderRight: "1px solid white" }}>
-            {match.bet_name}
+            {match.bet_name || 'win'}
           </div>
-          <div style={style}>{match.rate}</div>
+          <div style={style}>{match.rate || 5}</div>
         </div>
       );
     });
