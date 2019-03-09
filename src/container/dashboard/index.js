@@ -14,9 +14,14 @@ class Dashboard extends React.Component {
     super();
     this.state = {
       currentGameIndex: 0,
-      matchInfo: []
+      matchInfo: [],
+      games: [],
     };
     autobind(this);
+  }
+
+  componentDidMount() {
+
   }
 
   getGames() {
@@ -27,7 +32,8 @@ class Dashboard extends React.Component {
         name={game.sports_name}
         onClick={() =>
           this.setState({
-            currentGameIndex: index
+            currentGameIndex: index,
+            matchInfo: [],
           })
         }
       />
@@ -58,7 +64,7 @@ class Dashboard extends React.Component {
                   currentGameIndex={currentGameIndex}
                 />
               </div>
-              <MatchInfo matches={this.state.matchInfo} />
+              <MatchInfo matches={this.state.matchInfo} {...this.props}/>
             </div>
             <div className="c1ol-padding border-white" style={{ width: "25%" }}>
               <div className="user-side-bar">

@@ -22,6 +22,8 @@ class MatchInfo extends React.Component {
     }
   }
   placeBet() {
+    const { history } = this.props;
+    history.push('/print');
     console.log("user placed bet on: ", this.state.selectedIndex);
   }
   getMatchInfo() {

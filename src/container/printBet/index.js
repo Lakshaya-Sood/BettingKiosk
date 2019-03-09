@@ -11,7 +11,8 @@ class PrintBet extends Component {
   }
 
   downloadQR() {
-    var blob = new Blob([this.state.qrData], { type: 'image/png' });
+    var blob = this.base64toBlob(this.state.qrData, { type: 'image/png', encoding: 'utf-8' });
+    // var blob = new Blob([window.atob(this.state.qrData)], { type: 'image/png', encoding: 'utf-8' });
     const filename = 'download.png'
     if (navigator.msSaveBlob) { // IE 10+
         navigator.msSaveBlob(blob, filename);
@@ -30,12 +31,33 @@ class PrintBet extends Component {
     }
   }
 
+  base64toBlob(base64Data, contentType) {
+    contentType = contentType || '';
+    var sliceSize = 1024;
+    var byteCharacters = atob(base64Data);
+    var bytesLength = byteCharacters.length;
+    var slicesCount = Math.ceil(bytesLength / sliceSize);
+    var byteArrays = new Array(slicesCount);
+
+    for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+        var begin = sliceIndex * sliceSize;
+        var end = Math.min(begin + sliceSize, bytesLength);
+
+        var bytes = new Array(end - begin);
+        for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
+            bytes[i] = byteCharacters[offset].charCodeAt(0);
+        }
+        byteArrays[sliceIndex] = new Uint8Array(bytes);
+    }
+    return new Blob(byteArrays, { type: contentType });
+}
+
   render() {
     return(
       <div>
         <QrCode base64Str={this.state.qrData} />
-        {/* <div onClick={this.downloadQR}>Print</div> */}
-        <a download="download.png" href={`data:image/png;base64,${this.state.base64Str}`}>Print</a>
+        <div onClick={this.downloadQR}>Print</div>
+        {/* <a download="download.png" href={`data:image/png;base64,${this.state.base64Str}`}>Print</a> */}
       </div>
     );
   }
