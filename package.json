@@ -43,6 +43,7 @@
     "postpackage": "electron-packager ./ --out=./builds"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "electron": "^4.0.0",
     "install": "^0.12.2",
     "lodash": "^4.17.11",

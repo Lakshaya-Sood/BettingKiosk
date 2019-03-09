@@ -7,6 +7,7 @@ import MatchInfo from "../../components/match_info";
 import SideHeader from "../../components/side_header";
 import Banner from "../../components/banner";
 import { GAMES } from "../../assets/dummy_data/games";
+import axios from 'axios';
 import { MATCHES } from "../../assets/dummy_data/matches";
 
 class Dashboard extends React.Component {
@@ -15,17 +16,44 @@ class Dashboard extends React.Component {
     this.state = {
       currentGameIndex: 0,
       matchInfo: [],
-      games: [],
+      games: GAMES,
     };
     autobind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    axios.get('http://192.168.43.100:8080/getMatches').then(result => {
+      console.log('result', result.data)
+      this.setState({
+        games: result.data,
+      })
+    }).catch(err => {
+      console.log(err);
+      this.setState({
+        games: GAMES,
+      });
+    })
+  }
 
+  componentDidMount(){
+    this.getLiveBets(0);
+  }
+
+  getLiveBets(retryCount) {
+    if(retryCount < 5 ) {
+      const evtSource = new EventSource('sse.php');
+      evtSource.onmessage = (data) => {
+        console.log(e.data);
+      }
+      evtSource.onerror = (err) => {
+        console.log(error);
+        retryCount++;
+      }
+    }
   }
 
   getGames() {
-    return GAMES.map((game, index) => (
+    return this.state.games.map((game, index) => (
       <GameName
         id={index}
         key={index + "_games"}
@@ -56,11 +84,11 @@ class Dashboard extends React.Component {
               {this.getGames()}
             </div>
             <div className="col-padding border-white" style={{ width: "55%" }}>
-              <Banner />
+              <Banner url={this.state.games[this.state.currentGameIndex].banner}/>
               <div className="row-margin border-white">
                 <LiveMatchList
                   getMatchInfo={this.getMatchInfo}
-                  games={GAMES}
+                  games={this.state.games}
                   currentGameIndex={currentGameIndex}
                 />
               </div>
