@@ -16,15 +16,18 @@ class App extends React.Component {
   }
   render() {
     return (
-      <Router>
-        <Switch>
-          {/* <Route path="/validatesession" component={SessionPage} /> */}
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/home" component={Home} />
-          <Route path='/print' component={PrintBet}/>
-          <Redirect to="/dashboard" />
-        </Switch>
-      </Router>
+      <div className='App' style={{ height: '97.5vh'}}>
+        <Router>
+          <Switch>
+            {/* <Route path="/validatesession" component={SessionPage} /> */}
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/home" component={Home} />
+            <Route path="/session" component={SessionPage} />
+            <Route path="/print" component={PrintBet}/>
+            <Redirect to="/home" />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }
