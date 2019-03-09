@@ -20,12 +20,12 @@ class LiveMatchList extends React.Component {
     const matches = matchClones.splice(this.props.currentMatchIndex, 4);
     console.log(this.state.currentMatchIndex, matches);
     return matches.map((match, index) => {
-      console.log('matchId', match.matchId);
+      console.log('matchId', match);
       return (
       <div className="live-mathces" id={index} key={index + "_games"}>
         <LiveMatchSummary
           name={match.matchName}
-          onClick={() => this.props.getMatchInfo(match.matchId)}
+          onClick={() => this.props.getMatchInfo(match.matchId, match.banner)}
         />
       </div>
     )});

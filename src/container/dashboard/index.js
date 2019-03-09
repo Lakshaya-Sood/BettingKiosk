@@ -16,6 +16,7 @@ class Dashboard extends React.Component {
       currentGameIndex: 0,
       matchInfo: [],
       games: [],
+      banner: null,
     };
     autobind(this);
   }
@@ -24,6 +25,19 @@ class Dashboard extends React.Component {
     fetch('http://192.168.43.100:8080/getMatches')
     .then(response => response.json())
     .then(json=>this.setState({games:json}))
+  }
+
+  getLiveBets(retryCount) {
+    if(retryCount < 5 ) {
+      const evtSource = new EventSource('sse.php');
+      evtSource.onmessage = (data) => {
+        console.log(e.data);
+      }
+      evtSource.onerror = (err) => {
+        console.log(error);
+        retryCount++;
+      }
+    }
   }
 
   getGames() {
@@ -37,13 +51,14 @@ class Dashboard extends React.Component {
           this.setState({
             currentGameIndex: index,
             matchInfo: [],
+            banner: null,
           })
         }
       />
     ));
   }
 
-  getMatchInfo(matchId) {
+  getMatchInfo(matchId, banner) {
     const url = `http://192.168.43.100:8080/getTeams?matchId=${matchId}`;
     fetch(url)
     .then(response => response.json())
@@ -55,6 +70,7 @@ class Dashboard extends React.Component {
       }));
       this.setState({
         matchInfo,
+        banner,
       })
     })
     // this.setState({
@@ -63,7 +79,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(this.state.games);
+    console.log(this.state.matchInfo);
     let { currentGameIndex } = this.state;
     return (
       <div className="App">
@@ -74,7 +90,7 @@ class Dashboard extends React.Component {
               {this.getGames()}
             </div>
             <div className="col-padding border-white" style={{ width: "55%" }}>
-              <Banner />
+              <Banner imageSrc={this.state.banner}/>
               <div className="row-margin border-white">
                 <LiveMatchList
                   getMatchInfo={this.getMatchInfo}
