@@ -3,7 +3,7 @@ $blue: #1a34b2;
 $greenLight: lighten($blue, 10%);
 
 @mixin dotBg($bgColor, $size) {
-  background-color: $bgColor;
+  // background-color: $bgColor;
   background-size: $size * 2 $size * 2;
   background-position: 0 0, $size $size;
 }

@@ -48,7 +48,7 @@ class LiveMatchList extends React.Component {
   }
 
   render() {
-    const matches = this.props.games[this.props.currentGameIndex].matches;
+    const matches = this.props.games.length > 0 ? this.props.games[this.props.currentGameIndex].matches : [];
     return (
       <>
         <div
