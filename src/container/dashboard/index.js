@@ -42,8 +42,9 @@ class Dashboard extends React.Component {
         })
 
       }
-      evtSource.onerror = (err) => {
+      evtSource.onerror = (error) => {
         console.log(error);
+        evtSource.close();
         retryCount++;
       }
     }

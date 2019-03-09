@@ -24,6 +24,8 @@ class MatchInfo extends React.Component {
   placeBet() {
     const { history, matchId } = this.props;
     const item = this.props.matches[this.state.selectedIndex];
+    const amountPlaced = 3;
+    const amountDue = parseFloat(item.rate) * amountPlaced;
     // history.push('/print');
     const paylaod = {
       email:'abc.def@gmail.com',
@@ -32,9 +34,9 @@ class MatchInfo extends React.Component {
       matchId,
       bet: {
         teamId: item.name,
-        "amount_placed": 3,
+        "amount_placed": amountPlaced,
         "betType":"win",
-        "amount_due": 300
+        "amount_due": amountDue
       }
     }
     fetch('http://192.168.43.100:8080/placeBet', {
@@ -51,16 +53,18 @@ class MatchInfo extends React.Component {
                 betId: 'safkjaf',
                 kioskId: 'kiosk1',
                 matchId,
-                amountDue: '100',
+                amountDue: ('' + amountDue),
                 }),
         headers:{
           'Content-Type': 'application/json'
         }
       }).then(response => response.text())
-      .then(res=> history.push({
+      .then(res=> {
+        console.log('qrRes: ', res);
+        history.push({
         pathname: '/print',
-        state: {qrDate:res}
-      }))
+        state: {qrData:res}
+      })})
       .catch(err=>console.log(err))
     })
     .catch(err => console.log(err))
